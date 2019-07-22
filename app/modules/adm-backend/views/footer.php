@@ -56,6 +56,31 @@
 				}, 500);
 	   });
 
+     $(document).on("click","#reset_pwd", function(e){
+       e.preventDefault();
+       $('.modal-dialog').removeClass('modal-lg')
+                         .removeClass('modal-md')
+                         .addClass('modal-sm');
+       $("#modalTitle").text('Reset password');
+       $('#modalContent').load($(this).attr('href'));
+       $("#modalGue").modal('show');
+     });
+
+
+     function addLoaders(elemet) {
+       $(elemet).append(`<div id="loaders-gue">
+                           <div class="jumping-dots-loader" id="spinners-gue">
+                               <span></span>
+                               <span></span>
+                               <span></span>
+                           </div>
+                         </div>`);
+     }
+
+     function removeLoaders(elemet){
+       $(elemet).find("#loaders-gue").remove();
+     }
+
   </script>
 </body>
 

@@ -151,6 +151,10 @@
                 <i class="ti-settings text-primary"></i>
                 Settings
               </a>
+              <a class="dropdown-item" href="<?=site_url("adm-backend/Resetpwd/getpwd/".$this->session->userdata("id_admin"))?>" id="reset_pwd">
+                <i class="fa fa-key text-primary"></i>
+                Reset Password
+              </a>
               <a class="dropdown-item" href="<?=site_url("backend/logout")?>">
                 <i class="ti-power-off text-primary"></i>
                 Logout
@@ -196,7 +200,7 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="<?=site_url("adm-backend/admin")?>">Administrator</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?=site_url("adm-backend/administrator")?>">Administrator</a></li>
               </ul>
             </div>
           </li>

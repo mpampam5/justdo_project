@@ -116,4 +116,18 @@
     $("#navbar-search-input").focus();
   });
 
+  function addLoaders(elemet) {
+    $(elemet).append(`<div id="loaders-gue">
+                        <div class="jumping-dots-loader" id="spinners-gue">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                      </div>`);
+  }
+
+  function removeLoaders(elemet){
+    $(elemet).find("#loaders-gue").remove();
+  }
+
 })(jQuery);

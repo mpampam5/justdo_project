@@ -185,11 +185,19 @@
             </a>
           </li>
 
+
           <li class="nav-item">
-            <a class="nav-link" href="<?=site_url("adm-backend/member")?>">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="fa fa-users menu-icon"></i>
-              <span class="menu-title">Member</span>
+              <span class="menu-title">Member Area</span>
+              <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="<?=site_url("adm-backend/member/index/1")?>">Member ON</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?=site_url("adm-backend/member/index/0")?>">Member OFF</a></li>
+              </ul>
+            </div>
           </li>
 
           <li class="nav-item">

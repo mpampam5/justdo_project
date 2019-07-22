@@ -40,7 +40,6 @@ class Administrator extends MY_Controller{
     if ($row = $this->model->get_where_detail("tb_admin",$id)) {
       $this->template->set_title("Administrator");
       $data = [
-                "action"      => site_url("adm-backend/administrator/update_action/$id"),
                 "button"      => "detail",
                 "id_admin"        => set_value("id_admin",$row->id_admin),
                 "nama"        => set_value("nama",$row->nama),

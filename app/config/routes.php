@@ -59,6 +59,7 @@ $route['member-panel/action'] = 'backend/login/login/action';
 $route['backend/logout'] = 'backend/login/login/logout';
 
 $route['member-register'] = 'backend/register/register';
+$route['referral/(:any)'] = 'backend/register/register/referral/$1';
 $route['member-register/action'] = 'backend/register/register/action';
 
 $route['member-register/jsonkabupaten'] = 'backend/register/register/kabupaten';

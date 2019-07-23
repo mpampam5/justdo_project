@@ -13,4 +13,9 @@ class Register_model extends CI_Model{
     return $this->db->get("ref_bank");
   }
 
+  function get_insert($table,$data)
+  {
+    return $this->db->insert($table,$data);
+  }
+
 }

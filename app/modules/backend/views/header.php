@@ -50,7 +50,7 @@
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item dropdown mr-1">
+          <!-- <li class="nav-item dropdown mr-1">
             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
               <i class="ti-email mx-0"></i>
             </a>
@@ -93,8 +93,8 @@
                 </div>
               </a>
             </div>
-          </li>
-          <li class="nav-item dropdown">
+          </li> -->
+          <!-- <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="ti-bell mx-0"></i>
               <span class="count"></span>
@@ -141,7 +141,7 @@
                 </div>
               </a>
             </div>
-          </li>
+          </li> -->
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <img src="<?=base_url()?>_template/back/images/faces/face28.jpg" alt="profile"/>
@@ -188,12 +188,13 @@
           </li> -->
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="ti-palette menu-icon"></i>
-              <span class="menu-title">Info Jaringan</span>
+              <i class="fa fa-users menu-icon"></i>
+              <span class="menu-title">Info Member</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="<?=site_url("backend/member/menunggu_verifikasi")?>">Menunggu Verifikasi</a></li>
                 <li class="nav-item"> <a class="nav-link" href="<?=site_url("backend/pohon_jaringan")?>">Pohon Jaringan</a></li>
               </ul>
             </div>

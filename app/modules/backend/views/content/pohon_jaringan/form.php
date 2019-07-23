@@ -75,7 +75,7 @@
 
 $(document).ready(function(){
     $('#showpwd').click(function(){
-    $(this).is(':checked') ? $('#password').attr('type', 'text') : $('#password').attr('type', 'password');
+      $(this).is(':checked') ? $('#password').attr('type', 'text') : $('#password').attr('type', 'password');
     });
 });
 

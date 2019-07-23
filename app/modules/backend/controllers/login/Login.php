@@ -36,14 +36,31 @@ class Login extends CI_Controller{
             $username = $this->input->post("username");
             $password = $this->input->post("password");
 
-            $qry = $this->db->get_where("tb_auth",array("username"=>$username,"level"=>"member"));
+            $qry = $this->db->select("tb_auth.id_personal,
+                                      tb_auth.username,
+                                      tb_auth.`password`,
+                                      tb_auth.`level`,
+                                      tb_auth.token,
+                                      tb_member.kode_referral,
+                                      tb_member.is_active,
+                                      tb_member.is_verifikasi")
+                            ->from("tb_auth")
+                            ->join("tb_member","tb_member.id_member = tb_auth.id_personal")
+                            ->where([
+                                      "username" => $username,
+                                      "level" => "member",
+                                      "is_active" => '1',
+                                      "is_verifikasi" => '1'
+                                    ])
+                            ->get();
             if ($qry->num_rows() > 0) {
 
                 $this->load->helper("pass_hash");
                 if (pass_decrypt($qry->row()->token,$password,$qry->row()->password)==true) {
                   $session = array(
-                                    'id_member' => $qry->row()->id_personal,
-                                    'login' => true
+                                    'id_member'     => $qry->row()->id_personal,
+                                    'kode_referral' => $qry->row()->kode_referral,
+                                    'login'         => true
                                   );
                   $this->session->set_userdata($session);
                   $json['valid'] = true;

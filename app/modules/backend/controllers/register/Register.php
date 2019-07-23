@@ -14,12 +14,22 @@ class Register extends CI_Controller{
     $data["action"]  = site_url("member-register/action");
     $data["provinsi"] = $this->model->get_provinsi()->result();
     $data["bank"]   = $this->model->get_bank()->result();
+    $data["kd_ref"] = "";
+    $this->load->view("register/index",$data);
+  }
+
+  function referral($referal)
+  {
+    $data["action"]  = site_url("member-register/action");
+    $data["provinsi"] = $this->model->get_provinsi()->result();
+    $data["bank"]   = $this->model->get_bank()->result();
+    $data["kd_ref"] = $referal;
     $this->load->view("register/index",$data);
   }
 
   function _rules()
   {
-    $this->form_validation->set_rules("kode_referal","Kode Referal","trim|xss_clean|required",[
+    $this->form_validation->set_rules("kode_referal","Kode Referral","trim|xss_clean|required|callback__cek_kode_ref",[
       "required" => "Silahkan masukkan kode referal mitra anda."
     ]);
 
@@ -28,6 +38,7 @@ class Register extends CI_Controller{
     $this->form_validation->set_rules("telepon","Telepon","trim|xss_clean|required|numeric");
 
     $this->form_validation->set_rules("tempat_lahir","Tempat Lahir","trim|xss_clean|required");
+    $this->form_validation->set_rules("tgl_lahir","Tanggal Lahir","trim|xss_clean|required");
     $this->form_validation->set_rules("jk","Jenis Kelamin","trim|xss_clean|required");
     $this->form_validation->set_rules("provinsi","Provinsi","trim|xss_clean|required");
     $this->form_validation->set_rules("kabupaten","Kabupaten/Kota","trim|xss_clean|required");
@@ -52,8 +63,29 @@ class Register extends CI_Controller{
     if ($this->input->is_ajax_request()) {
         $json = array('success'=>false, 'alert'=>array());
         $this->load->library(array("form_validation"));
-        $tgl_lahir = $this->input->post("tgl_lahir",true);
-        $this->form_validation->set_rules("tgl_lahir","Tanggal Lahir","trim|xss_clean|required");
+
+        $kode_referral      = $this->input->post("kode_referal",true);
+        $nik                = $this->input->post("nik",true);
+        $nama               = $this->input->post("nama",true);
+        $email              = $this->input->post("email",true);
+        $telepon            = $this->input->post("telepon",true);
+        $tempat_lahir       = $this->input->post("tempat_lahir",true);
+        $tgl_lahir          = $this->input->post("tgl_lahir",true);
+        $jk                 = $this->input->post("jk",true);
+        $provinsi           = $this->input->post("provinsi",true);
+        $kabupaten          = $this->input->post("kabupaten",true);
+        $kecamatan          = $this->input->post("kecamatan",true);
+        $kelurahan          = $this->input->post("kelurahan",true);
+        $alamat             = $this->input->post("alamat",true);
+        $paket              = $this->input->post("paket",true);
+        $bank               = $this->input->post("bank",true);
+        $no_rek             = $this->input->post("no_rek",true);
+        $nama_rekening      = $this->input->post("nama_rekening",true);
+        $kota_pembukaan_rek = $this->input->post("kota_pembukaan_rek",true);
+        $username           = $this->input->post("username",true);
+        $password           = $this->input->post("password",true);
+
+
         $this->form_validation->set_rules("nik","Nik/No.KTP","trim|xss_clean|required|min_length[16]|max_length[16]|numeric|callback__cek_nik[".$tgl_lahir."]|is_unique[tb_member.nik]",[
           "is_unique" => "Nik/No.KTP sudah terdaftar"
         ]);
@@ -62,12 +94,52 @@ class Register extends CI_Controller{
         if ($this->form_validation->run()) {
 
 
+            $insert_member = [  "kode_referral" => "ref_$username",
+                                "referral_from" => $kode_referral ,
+                                "nik"           => $nik,
+                                "nama"          => $nama,
+                                "telepon"       => $telepon,
+                                "email"         => $email,
+                                "jk"            => $jk,
+                                "tempat_lahir"  => $tempat_lahir,
+                                "tgl_lahir"     => date("Y-m-d",strtotime($tgl_lahir)),
+                                "provinsi"      => $provinsi,
+                                "kabupaten"     => $kabupaten,
+                                "kecamatan"     => $kecamatan,
+                                "kelurahan"     => $kelurahan,
+                                "alamat"        => $alamat,
+                                "paket"         => $paket,
+                                "is_verifikasi" => "0",
+                                "created"       => date("Y-m-d h:i:s"),
+                            ];
+          // insert member
+          $this->model->get_insert("tb_member",$insert_member);
 
+          $last_id_member = $this->db->insert_id();
 
+          $insert_data_bank = [ "id_member"                =>  $last_id_member,
+                                "id_bank"                  =>  $bank,
+                                "no_rekening"              =>  $no_rek,
+                                "nama_rekening"            =>  $nama_rekening,
+                                "kota_pembukaan_rekening"  =>  $kota_pembukaan_rek
+                              ];
+          // insert data bank
+          $this->model->get_insert("trans_member_rek",$insert_data_bank);
 
+          $this->load->helper("pass_hash");
 
+          $data_akun = [  "id_personal"  =>  $last_id_member,
+                          "username"     =>  $username,
+                          "password"     =>  pass_encrypt(date("dmYhis"),$password),
+                          "token"        =>  date("dmYhis"),
+                          "level"        =>  "member",
+                          "created"      =>  date("Y-m-d h:i:s")
+                        ];
+          // insert data auth
+          $this->model->get_insert("tb_auth",$data_akun);
 
-            $json['success'] = true;
+          $json['alert'] = "Berhasil melakukan registrasi. Selanjutnya menunggu tahap verifikasi dari mitra anda";
+          $json['success'] = true;
         }else {
           foreach ($_POST as $key => $value)
             {
@@ -78,6 +150,19 @@ class Register extends CI_Controller{
       echo json_encode($json);
     }
   }
+
+
+    function _cek_kode_ref($str)
+    {
+        $qry = $this->db->get_where("tb_member",["kode_referral"=>$str]);
+        if ($qry->num_rows() > 0) {
+          return true;
+        }else {
+          $this->form_validation->set_message('_cek_kode_ref', 'Kode referal yang anda masukkan tidak terdaftar');
+          return false;
+        }
+
+    }
 
 
   function _cek_nik($str,$tgl_lahir)
@@ -101,20 +186,6 @@ class Register extends CI_Controller{
     }
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

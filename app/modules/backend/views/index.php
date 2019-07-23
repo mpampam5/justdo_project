@@ -7,7 +7,7 @@
                     FROM
                     tb_member
                     WHERE
-                    tb_member.referral_from = $row->kode_referral
+                    tb_member.referral_from = '$row->kode_referral'
                     ")->num_rows();
 ?>
 

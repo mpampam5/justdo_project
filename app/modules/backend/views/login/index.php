@@ -31,9 +31,9 @@
               <!-- <div class="brand-logo">
                 <img src="http://www.urbanui.com/justdo/template/images/logo.svg" alt="logo">
               </div> -->
-              <h4>Hello! let's get started</h4>
-              <h6 class="font-weight-light">Sign in to continue.</h6>
-              <form class="pt-3" id="form" action="<?=site_url("adm-panel/action")?>">
+              <h4>Login</h4>
+              <h6 class="font-weight-light">Silahkan masukkan data akun.</h6>
+              <form class="pt-3" id="form" action="<?=site_url("member-panel/action")?>">
                 <div class="form-group">
                   <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="Username">
                 </div>
@@ -45,15 +45,15 @@
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
-                    <label class="form-check-label text-muted">
+                    <!-- <label class="form-check-label text-muted">
                       <input type="checkbox" class="form-check-input">
                       Keep me signed in
-                    </label>
+                    </label> -->
                   </div>
-                  <a href="#" class="auth-link text-black">Forgot password?</a>
+                  <a href="#" class="auth-link text-black">Lupa password?</a>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
-                  Don't have an account? <a href="register.html" class="text-primary">Create</a>
+                  Belum punya akun? <a href="<?=site_url("member-register")?>" class="text-primary">Register</a>
                 </div>
               </form>
             </div>
@@ -106,6 +106,7 @@
                                             loaderBg: '#000000',
                                             position: 'top-center'
                                           });
+                                          $('.text-danger').remove();
                                         }
                                       }else {
                                         $.each(json.alert, function(key, value) {

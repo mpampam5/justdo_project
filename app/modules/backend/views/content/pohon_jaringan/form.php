@@ -3,10 +3,32 @@
 
       <div class="col-sm-12">
         <div class="form-group">
-          <label for="">Nama</label>
-          <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama">
+          <label for="">Nik</label>
+          <input type="text" class="form-control" name="nik" id="nik" placeholder="Nik">
         </div>
       </div>
+
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="">Nama</label>
+          <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama">
+        </div>
+      </div>
+
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="">Telepon</label>
+          <input type="text" class="form-control" name="telepon" id="telepon" placeholder="Telepon">
+        </div>
+      </div>
+
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="">Email</label>
+          <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+        </div>
+      </div>
+
 
       <div class="col-sm-12">
         <div class="form-group">
@@ -19,6 +41,17 @@
         <div class="form-group">
           <label for="">Password</label>
           <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+      </div>
+
+      <div class="col-sm-12">
+        <div class="form-group">
+          <div class="form-check form-check-primary">
+            <label class="form-check-label">
+              <input type="checkbox"id="showpwd" class="form-check-input">
+              Lihat Password
+            <i class="input-helper"></i></label>
+          </div>
         </div>
       </div>
 
@@ -39,6 +72,13 @@
 
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+    $('#showpwd').click(function(){
+    $(this).is(':checked') ? $('#password').attr('type', 'text') : $('#password').attr('type', 'password');
+    });
+});
+
 $("#form").submit(function(e){
   e.preventDefault();
   var me = $(this);

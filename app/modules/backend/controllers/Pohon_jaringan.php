@@ -38,8 +38,11 @@ class Pohon_jaringan extends MY_Controller{
   function tambah_action(){
     if ($this->input->is_ajax_request()) {
       $json = array('success'=>false, 'alert'=>array());
+      $this->form_validation->set_rules("nik","Nik","trim|xss_clean|required|numeric|callback__cek_nik");
+      $this->form_validation->set_rules("email","Email","trim|xss_clean|required|valid_email|callback__cek_email");
+      $this->form_validation->set_rules("telepon","Telepon","trim|xss_clean|required|numeric");
       $this->form_validation->set_rules("nama","Nama","trim|xss_clean|required");
-      $this->form_validation->set_rules("username","Username","trim|xss_clean|required|alpha_numeric|callback__cek_username",[
+      $this->form_validation->set_rules("username","Username","trim|xss_clean|required|alpha_dash|callback__cek_username",[
         "alpha_numeric" => "Hanya Bisa berisi angka dan huruf"
       ]);
       $this->form_validation->set_rules("password","Password","trim|xss_clean|required|min_length[5]");
@@ -50,21 +53,36 @@ class Pohon_jaringan extends MY_Controller{
         $query = $this->model->get_where("tb_member",['id_member'=>$this->session->userdata("id_member")]);
         $referral = $query->kode_referral;
         $data = [
+                  "nik"    => $this->input->post("nik",true),
                   "nama"    => $this->input->post("nama",true),
-                  "username" => $this->input->post("username",true),
-                  "password"  => $this->input->post("password",true),
+                  "telepon"    => $this->input->post("telepon",true),
+                  "email"    => $this->input->post("email",true),
                   "posisi"   => $this->input->post("posisi",true),
                   "referral_from" => $referral,
                   "kode_referral" => date('dmYhis'),
                   "created" => date("Y-m-d h:i:s")
                 ];
         $this->model->get_insert("tb_member",$data);
+
         $last_id = $this->db->insert_id();
-        $last_insert = array('id_parent' =>$this->input->post('id_parent') ,'id_member'=>$last_id);
-        $this->model->get_insert("trans",$last_insert);
+        $last_insert = array( 'id_parent' => $this->input->post('id_parent'),
+                              'id_member'=> $last_id
+                            );
+        $this->model->get_insert("trans_member",$last_insert);
+
+        $this->load->helper("pass_hash");
+        $last_insert_auth = [ "id_personal"  => $last_id,
+                              "username"     => $this->input->post("username",true),
+                              "password"     => pass_encrypt(date('dmYhis'),$this->input->post("password")),
+                              "token"        => date('dmYhis'),
+                              "level"        =>  "member",
+                              "created"      => date("Y-m-d h:i:s")
+                            ];
+        $this->model->get_insert("tb_auth",$last_insert_auth);
+
         $json['alert'] = "Member Berhasil Di Tambahkan";
         $json['success'] =  true;
-        send_log("baru-baru ini \"".$data['nama']."\" Telah di tambahkan sebagai member");
+
       }else {
         foreach ($_POST as $key => $value)
           {
@@ -75,11 +93,34 @@ class Pohon_jaringan extends MY_Controller{
     }
   }
 
+
+  function _cek_nik($str)
+  {
+    if ($this->model->get_where("tb_member",["nik"=>$str]))
+    {
+      $this->form_validation->set_message('_cek_nik', 'Nik sudah terdaftar');
+      return FALSE;
+    }else{
+      return TRUE;
+    }
+  }
+
+  function _cek_email($str)
+  {
+    if ($this->model->get_where("tb_member",["email"=>$str]))
+    {
+      $this->form_validation->set_message('_cek_email', 'Email sudah terdaftar');
+      return FALSE;
+    }else{
+      return TRUE;
+    }
+  }
+
   function _cek_username($str)
   {
-    if ($this->model->get_where("tb_member",["username"=>$str]))
+    if ($this->model->get_where("tb_auth",["username"=>$str,"level"=>"member"]))
     {
-      $this->form_validation->set_message('_cek_username', 'Username sudah ada');
+      $this->form_validation->set_message('_cek_username', 'Username sudah terdaftar');
       return FALSE;
     }else{
       return TRUE;

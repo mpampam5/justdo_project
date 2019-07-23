@@ -54,6 +54,13 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
-$route['adm-panel'] = 'backend/login/login';
-$route['adm-panel/action'] = 'backend/login/login/action';
+$route['member-panel'] = 'backend/login/login';
+$route['member-panel/action'] = 'backend/login/login/action';
 $route['backend/logout'] = 'backend/login/login/logout';
+
+$route['member-register'] = 'backend/register/register';
+$route['member-register/action'] = 'backend/register/register/action';
+
+$route['member-register/jsonkabupaten'] = 'backend/register/register/kabupaten';
+$route['member-register/jsonkecamatan'] = 'backend/register/register/kecamatan';
+$route['member-register/jsonkelurahan'] = 'backend/register/register/kelurahan';

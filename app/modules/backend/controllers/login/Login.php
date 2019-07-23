@@ -36,16 +36,19 @@ class Login extends CI_Controller{
             $username = $this->input->post("username");
             $password = $this->input->post("password");
 
-            $qry = $this->db->get_where("tb_member",array("username"=>$username,"password"=>$password));
+            $qry = $this->db->get_where("tb_auth",array("username"=>$username,"level"=>"member"));
             if ($qry->num_rows() > 0) {
-                $session = array(
-                                  'id_member' => $qry->row()->id_member,
-                                  'login' => true
-                                );
-                $this->session->set_userdata($session);
-                $json['valid'] = true;
-                $json['url'] = site_url("backend/index");
-                send_log("baru-baru ini seseorang login menggunakan id ".$qry->row()->id_member);
+
+                $this->load->helper("pass_hash");
+                if (pass_decrypt($qry->row()->token,$password,$qry->row()->password)==true) {
+                  $session = array(
+                                    'id_member' => $qry->row()->id_personal,
+                                    'login' => true
+                                  );
+                  $this->session->set_userdata($session);
+                  $json['valid'] = true;
+                  $json['url'] = site_url("backend/index");
+                }
             }else {
                 $json["alert"] = "Username Atau Password Salah.";
             }
@@ -63,7 +66,7 @@ class Login extends CI_Controller{
   function logout()
   {
     $this->session->sess_destroy();
-    redirect(site_url("adm-panel"));
+    redirect(site_url("member-panel"));
   }
 
 

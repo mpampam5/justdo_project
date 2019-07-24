@@ -155,7 +155,7 @@
                 <i class="fa fa-key text-primary"></i>
                 Reset Password
               </a>
-              <a class="dropdown-item" href="<?=site_url("backend/logout")?>">
+              <a class="dropdown-item" href="<?=site_url("adm-panel/logout")?>">
                 <i class="ti-power-off text-primary"></i>
                 Logout
               </a>

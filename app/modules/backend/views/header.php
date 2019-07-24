@@ -20,6 +20,7 @@
   <link rel="shortcut icon" href="<?=base_url()?>_template/back/images/favicon.png" />
 
   <link rel="stylesheet" href="<?=base_url()?>_template/back/vendors/jquery-toast-plugin/jquery.toast.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>_template/back/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
   <!-- plugins:js -->
   <script src="<?=base_url()?>_template/back/vendors/js/vendor.bundle.base.js"></script>
   <script src="<?=base_url()?>_template/back/vendors/jquery-toast-plugin/jquery.toast.min.js"></script>

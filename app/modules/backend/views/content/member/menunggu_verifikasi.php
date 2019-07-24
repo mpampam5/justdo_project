@@ -103,43 +103,5 @@ $(document).ready(function() {
 
 
 
-$(document).on("click","#delete",function(e){
-  e.preventDefault();
-  $('.modal-dialog').removeClass('modal-lg')
-                    .removeClass('modal-md')
-                    .addClass('modal-sm');
-  $("#modalTitle").text('Konfirmasi Hapus');
-  $('#modalContent').html(`<p>Apakah anda yakin ingin menghapus?</p>`);
-  $('#modalFooter').addClass('modal-footer').html(`<button type='button' class='btn btn-light btn-sm' data-dismiss='modal'>Batal</button>
-                          <button type='button' class='btn btn-primary btn-sm' id='ya-hapus' data-id=`+$(this).attr('alt')+`  data-url=`+$(this).attr('href')+`>Ya, saya yakin</button>
-                        `);
-  $("#modalGue").modal('show');
-});
-
-$(document).on('click','#ya-hapus',function(e){
-  $(this).prop('disabled',true)
-          .text('Memproses...');
-  $.ajax({
-          url:$(this).data('url'),
-          type:'post',
-          cache:false,
-          dataType:'json',
-          success:function(json){
-            $('#modalGue').modal('hide');
-            $.toast({
-              text: json.alert,
-              showHideTransition: 'slide',
-              icon: json.success,
-              loaderBg: '#f96868',
-              position: 'bottom-right',
-              afterHidden: function () {
-                  $('#table').DataTable().ajax.reload();
-              }
-            });
-
-
-          }
-        });
-});
 
 </script>

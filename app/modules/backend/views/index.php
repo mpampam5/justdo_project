@@ -3,11 +3,13 @@
   $total_referral = $this->db->query("SELECT
                     tb_member.id_member,
                     tb_member.referral_from,
-                    tb_member.kode_referral
+                    tb_member.kode_referral,
+                    tb_member.is_verifikasi
                     FROM
                     tb_member
                     WHERE
-                    tb_member.referral_from = '$row->kode_referral'
+                    tb_member.referral_from = '$row->kode_referral' AND
+                    tb_member.is_verifikasi = '1'
                     ")->num_rows();
 ?>
 

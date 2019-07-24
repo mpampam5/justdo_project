@@ -154,7 +154,7 @@ class Register extends CI_Controller{
 
     function _cek_kode_ref($str)
     {
-        $qry = $this->db->get_where("tb_member",["kode_referral"=>$str]);
+        $qry = $this->db->get_where("tb_member",["kode_referral"=>$str, "is_verifikasi"=>"1"]);
         if ($qry->num_rows() > 0) {
           return true;
         }else {

@@ -18,10 +18,10 @@
 
           <h4 class="card-title">List <?=$title?></h4>
 
-          <div class="btn-group-header">
+          <!-- <div class="btn-group-header">
             <a href="#" class="btn btn-primary btn-sm btn-icon-text" id="table-reload"> <i class="fa fa-refresh btn-icon-prepend"></i></a>
             <a href="<?=site_url("adm-backend/administrator/add")?>" class="btn btn-success btn-sm btn-icon-text"><i class="fa fa-plus btn-icon-prepend"></i> Tambah</a>
-          </div>
+          </div> -->
 
         <hr>
 

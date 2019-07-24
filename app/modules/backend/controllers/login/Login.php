@@ -65,6 +65,8 @@ class Login extends CI_Controller{
                   $this->session->set_userdata($session);
                   $json['valid'] = true;
                   $json['url'] = site_url("backend/index");
+                }else {
+                  $json["alert"] = "Username Atau Password Salah.";
                 }
             }else {
                 $json["alert"] = "Username Atau Password Salah.";

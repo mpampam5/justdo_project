@@ -150,7 +150,7 @@
 
 
 
-      <script type="text/javascript">
+      <!-- <script type="text/javascript">
       $(document).on("click","#tambah",function(e){
         e.preventDefault();
         $('.modal-dialog').removeClass('modal-sm')
@@ -160,4 +160,4 @@
         $('#modalContent').load($(this).attr('href'));
         $("#modalGue").modal('show');
       });
-      </script>
+      </script> -->

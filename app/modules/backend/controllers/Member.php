@@ -8,7 +8,6 @@ class Member extends MY_Controller{
   public function __construct()
   {
     parent::__construct();
-    //Codeigniter : Write Less Do More
     $this->load->model('Member_model','model');
   }
 
@@ -26,6 +25,21 @@ class Member extends MY_Controller{
         echo $this->model->json_menunggu_verif();
     }
   }
+
+
+  function detail_member_menunggu_verif($id){
+    $where = ["tb_member.id_member" =>$id];
+    if ($row = $this->model->detail_member_menunggu_verif($where)) {
+      $this->template->set_title("Member Menunggu Verifikasi");
+      $data["button"] = "Detail";
+      $data["row"] = $row;
+      $this->template->view("content/member/detail_menunggu_verifikasi",$data);
+    }else {
+      $this->_error404();
+    }
+  }
+
+
 
 
 

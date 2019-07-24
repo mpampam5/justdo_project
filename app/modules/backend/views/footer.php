@@ -35,6 +35,7 @@
   <script src="<?=base_url()?>_template/back/vendors/chart.js/Chart.min.js"></script>
   <!-- End plugin js for this page -->
   <!-- inject:js -->
+  <script src="<?=base_url()?>_template/back/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
   <script src="<?=base_url()?>_template/back/js/off-canvas.js"></script>
   <script src="<?=base_url()?>_template/back/js/hoverable-collapse.js"></script>
   <script src="<?=base_url()?>_template/back/js/template.js"></script>

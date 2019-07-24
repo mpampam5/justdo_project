@@ -53,7 +53,12 @@ $route['default_controller'] = 'backend/login/login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+//Page login Admin
+$route['adm-panel']        = 'adm-backend/login';
+$route['adm-panel/action'] = 'adm-backend/login/action';
+$route['adm-panel/logout'] = 'adm-backend/login/logout';
 
+//Page login Member
 $route['member-panel'] = 'backend/login/login';
 $route['member-panel/action'] = 'backend/login/login/action';
 $route['backend/logout'] = 'backend/login/login/logout';

@@ -12,7 +12,7 @@ class MY_Controller extends CI_Controller{
     }
     $this->load->config('my_config');
     $this->load->library(array('backend/template','form_validation','encrypt'));
-    $this->load->helper(array('backend/encsecurity',"backend/telegram"));
+    $this->load->helper(array('backend/encsecurity',"backend/backend_member"));
   }
 
 

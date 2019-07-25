@@ -32,7 +32,7 @@
                     <th width="10px">No</th>
                     <th>Nama</th>
                     <th>Telepon</th>
-                    <th>Kode Referral</th>
+                    <th>Username</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -92,7 +92,7 @@ $(document).ready(function() {
               {"data":"nama"},
               {"data":"telepon"},
               {
-                "data":"kode_referral"
+                "data":"username"
               },
               {
                 "data":"is_active",

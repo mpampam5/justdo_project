@@ -32,6 +32,7 @@
   </div>
   <!-- endinject -->
   <!-- Plugin js for this page -->
+  <script src="<?=base_url()?>_template/back/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
   <script src="<?=base_url()?>_template/back/vendors/chart.js/Chart.min.js"></script>
   <!-- End plugin js for this page -->
   <!-- inject:js -->
